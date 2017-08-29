@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>experimental_anno mvt</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.0/mapbox-gl.css' rel='stylesheet' />
+<link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; user-select:none; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+#features {
+  position: absolute; overflow: auto; z-index: 10;
+  left: 0; right: 0; top: 0; height: 60px;
+  background: rgba(0, 0, 0, 0.4); color: #fff}
+</style>
+</head>
+<body>
+<div id="map"/>
+<pre id='features'/>
+<script>
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'style.json',
+  center: [135, 35], zoom: 6, hash: true, maxZoom: 16
+});
+map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point);
+    var s = '';
+    for(i in features) {
+      if(features[i]["layer"]["id"] == "anno") {
+        s += JSON.stringify(features[i]["properties"]) + "\n";
+      }
+    }
+    document.getElementById('features').innerHTML = s;
+});
+</script>
+</body>
+</html>

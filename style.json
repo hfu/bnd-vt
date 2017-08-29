@@ -1,0 +1,63 @@
+{
+  "version": 8,
+  "name": "Global Map vector tiles",
+  "glyphs": "https://hfu.github.io/noto-jp/{fontstack}/{range}.pbf",
+  "sources": {
+    "anno": {
+      "type": "vector",
+      "tiles": [
+        "https://hfu.github.io/anno-vt/{z}/{x}/{y}.mvt"
+      ],
+      "minzoom": 0,
+      "maxzoom": 12,
+      "attribution": "GSI vector tile engineering experiment (anno)"
+    },
+    "land": {
+      "type": "vector",
+      "tiles": ["https://hfu.github.io/natural-earth-land-301/{z}/{x}/{y}.mvt"],
+      "minzoom": 0,
+      "maxzoom": 8,
+      "attribution": "Natural Earth (land)"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#5b92e5"
+      }
+    },
+    {
+      "id": "land",
+      "type": "fill",
+      "source": "land",
+      "source-layer": "land",
+      "paint": {
+        "fill-color": "#fff",
+        "fill-opacity": 1,
+        "fill-outline-color": "#fff"
+      }
+    },
+    {
+      "id": "anno",
+      "type": "symbol",
+      "source": "anno",
+      "source-layer": "anno",
+      "minzoom": 0,
+      "maxzoom": 20,
+      "layout": {
+        "text-size": 14,
+        "text-rotate": {
+          "type": "identity",
+          "property": "arrngAgl"
+        },
+        "text-field": "{knj}",
+        "text-font": ["NotoSansCJKjp-DemiLight"]
+      },
+      "paint": {
+        "text-color": "#c5192d"
+      }
+    }
+  ]
+}
